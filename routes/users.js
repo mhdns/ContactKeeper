@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
 
 const router = express.Router();
@@ -49,7 +49,7 @@ router.post(
         }
       };
 
-      jwt.sign(
+      return jwt.sign(
         payload,
         config.get('jwtSecret'),
         {
@@ -61,8 +61,9 @@ router.post(
         }
       );
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(err.message);
-      res.status(500).send('Server error');
+      return res.status(500).send('Server error');
     }
   }
 );
