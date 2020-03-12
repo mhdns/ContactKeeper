@@ -49,7 +49,7 @@ router.post(
         }
       };
 
-      return jwt.sign(
+      jwt.sign(
         payload,
         config.get('jwtSecret'),
         {
@@ -57,7 +57,7 @@ router.post(
         },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          return res.json({ token });
         }
       );
     } catch (err) {
@@ -65,6 +65,8 @@ router.post(
       console.error(err.message);
       return res.status(500).send('Server error');
     }
+
+    return null;
   }
 );
 
