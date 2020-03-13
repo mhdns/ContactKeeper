@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', require('./routes/users'));
 app.use('/api/contacts', require('./routes/contacts'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/contacts/:id', require('./routes/contacts'));
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
