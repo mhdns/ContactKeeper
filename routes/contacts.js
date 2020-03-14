@@ -91,8 +91,16 @@ router.put('/:id', [auth, checkContact, [
 // @route    DELETE /api/contacts/:id
 // @desc     Delete contact
 // @access   Private
-router.delete('/:id', (req, res) => {
-  res.send('Delete contact');
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    await Contact.remove({ _id: req.params.id, user: req.user.id });
+    return res.status(204).send(); // Need to send after declaring a status
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err.message);
+    return res.status(500).send('Server error');
+  }
 });
 
 module.exports = router;

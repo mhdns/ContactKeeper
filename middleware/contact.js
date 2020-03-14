@@ -1,9 +1,9 @@
 const Contact = require('../models/Contact');
 
 /* eslint-disable func-names, space-before-function-paren */
-const checkContact = function (req, res, next) {
+const checkContact = async function (req, res, next) {
   try {
-    Contact.findById(req.params.id, (err, contact) => {
+    await Contact.findById(req.params.id, (err, contact) => {
       if (err) {
         // eslint-disable-next-line no-console
         console.error(err.message);
