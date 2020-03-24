@@ -1,4 +1,4 @@
-import React, {useContext, Fragment} from 'react';
+import React, { useEffect, useContext, Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AuthContext from '../../context/auth/authContext';
@@ -6,7 +6,12 @@ import AuthContext from '../../context/auth/authContext';
 const Navbar = ({title, icon}) => {
   const authContext = useContext(AuthContext);
 
-  const { isAuthenticated, logout, user } = authContext;
+  const { isAuthenticated, logout, user, loadUser } = authContext;
+
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line
+  }, []);
 
   const onLogout = () => {
     logout();
