@@ -1,7 +1,6 @@
 .vscode
 node_modules/
 .eslintrc.js
-config/
 ContactKeeperAPI/
 .DS_Store
 /client/.env*

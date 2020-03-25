@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://mhdns1234:Random1234!@contactkeeper-q0yky.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "chicken"
+}
