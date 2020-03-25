@@ -14,7 +14,6 @@ import {
   GET_CONTACTS,
   CLEAR_CONTACTS
 } from '../types';
-import { header } from 'express-validator';
 
 const ContactState = props => {
   const initialState = {
@@ -25,6 +24,21 @@ const ContactState = props => {
   }
 
   const [state, dispatch] = useReducer(contactReducer, initialState)
+
+  // Update Contact
+  const updateContact = async (contact) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    try {
+      const res = await axios.put(`/api/contacts/${contact._id}`, contact, config)
+      dispatch({ type: UPDATE_CONTACT, payload: res.data})
+    } catch (err) {
+      dispatch({ type: CONTACT_ERROR, payload: err.response.msg })
+    }
+  }
 
   // Get Contacts
   const getContacts = async () => {
@@ -49,7 +63,6 @@ const ContactState = props => {
     } catch (err) {
       dispatch({ type: CONTACT_ERROR, payload: err.response.msg })
     }
-    
   };
 
   // Delete Contact
@@ -65,18 +78,17 @@ const ContactState = props => {
   const clearContacts = () => {
     dispatch({ type: CLEAR_CONTACTS })
   }
+
   // Set Current Contact
   const setCurrent = contact => {
     dispatch({ type: SET_CURRENT, payload: contact })
   };
+
   // Clear Current Contact
   const clearCurrent = () => {
     dispatch({ type: CLEAR_CURRENT })
   };
-  // Update Contact
-  const updateContact = (contact) => {
-    dispatch({ type: UPDATE_CONTACT, payload: contact})
-  }
+
   // Filter Contacts
   const filterContacts = (text) => {
     dispatch({ type: FILTER_CONTACTS, payload: text})
